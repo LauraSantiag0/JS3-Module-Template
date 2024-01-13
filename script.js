@@ -38,8 +38,6 @@ function makePageForEpisodes(episodeList) {
   });
 }
 
-
-
 function formatSeasonNumber(seasonNumber) {
   return seasonNumber < 10 ? `0${seasonNumber}` : seasonNumber;
 }
