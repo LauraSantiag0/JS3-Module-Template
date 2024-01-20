@@ -1,4 +1,55 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e5e0e4;
+  margin: 0;
+  padding: 0;
+}
+
 #root {
-    color: blue;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.episode {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 18px rgba(153, 34, 189, 0.1);
+  margin: 15px;
+  padding: 20px;
+  padding-bottom: 60px;
+  width: calc(33.33% - 30px); 
+  box-sizing: border-box; 
+  border-top: 2px solid #ddd; 
+}
+
+.episode h2 {
+  font-size: 1.2em;
+  margin-top: 0; 
+  text-align: center; 
+  border-bottom: 2px solid #ddd; 
+  padding-bottom: 10px; 
+  border-left: 2px solid #ddd;
+  border-right: 2px solid #ddd;
+  border-top: 2px solid #ddd;
+}
+
+.episode p {
+  text-align: center;
+  margin: 5px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.episode img {
+  margin: auto; 
+  display: block; /* Remove qualquer espaço extra ao redor da imagem */
+  border-radius: 4px;
+  margin-bottom: 10px;
+  max-width: 100%;
+  height: auto;
+}
