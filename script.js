@@ -1,9 +1,18 @@
 //You can edit ALL of the code here
+const allEpisodes = getAllEpisodes();
+
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
  
 }
+const searchTerm = document.getElementById("q");
+searchTerm.value.innerText = "";
+const input = searchTerm.value;
+
+const filteredFilms = allEpisodes.filter(function(episode){
+  return episode.title.includes(input);
+});
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
