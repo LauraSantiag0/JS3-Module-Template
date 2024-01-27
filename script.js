@@ -1,32 +1,50 @@
 //You can edit ALL of the code here
 const allEpisodes = getAllEpisodes();
+const rootElem = document.getElementById("root");
+
 
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
- 
 }
 const searchTerm = document.getElementById("q");
-searchTerm.value.innerText = "";
-const input = searchTerm.value;
+// searchTerm.value.innerText = "";
 
-const filteredFilms = allEpisodes.filter(function(episode){
-  return episode.name.includes(input);
-});
+// function render(){
+// const filteredFilms = allEpisodes.filter(function(episode){
+//   return episode.name.includes();
+// });
+// }
+// render();
 
+searchTerm.addEventListener("input", filteredFilms);
 
+function filteredFilms() {
+  const findFilms = getAllEpisodes().filter(
+    (episode) => episode.name.toLowerCase().includes(searchTerm.value.toLowerCase())
+  );
+  emptyContents();
+  makePageForEpisodes(findFilms);
+}
+
+function emptyContents(){
+  
+  rootElem.innerHTML = "";
+}
 
 function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  rootElem.innerHTML = ""; 
+  
+  emptyContents();
 
   episodeList.forEach((episode) => {
     const episodeElem = document.createElement("div");
     episodeElem.classList.add("episode");
 
     const titleElem = document.createElement("h2");
-    titleElem.textContent = `${episode.name} - S${formatSeasonNumber(episode.season)}E${formatEpisodeNumber(episode.number)}`;
-    const titleClass = document.createAttribute ("class");
+    titleElem.textContent = `${episode.name} - S${formatSeasonNumber(
+      episode.season
+    )}E${formatEpisodeNumber(episode.number)}`;
+    const titleClass = document.createAttribute("class");
     titleClass.value = "title";
     titleElem.setAttributeNode(titleClass);
     episodeElem.appendChild(titleElem);
@@ -34,7 +52,7 @@ function makePageForEpisodes(episodeList) {
     const imageElem = document.createElement("img");
     imageElem.src = episode.image.medium;
     imageElem.alt = `${episode.name} Image`;
-    const imgClass = document.createAttribute ("class");
+    const imgClass = document.createAttribute("class");
     imgClass.value = "center";
     imageElem.setAttributeNode(imgClass);
     episodeElem.appendChild(imageElem);
@@ -54,11 +72,5 @@ function formatSeasonNumber(seasonNumber) {
 function formatEpisodeNumber(episodeNumber) {
   return episodeNumber < 10 ? `0${episodeNumber}` : episodeNumber;
 }
-
-
-
-
-
-
 
 window.onload = setup;
