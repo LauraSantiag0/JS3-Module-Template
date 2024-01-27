@@ -11,8 +11,10 @@ searchTerm.value.innerText = "";
 const input = searchTerm.value;
 
 const filteredFilms = allEpisodes.filter(function(episode){
-  return episode.title.includes(input);
+  return episode.name.includes(input);
 });
+
+
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
