@@ -35,7 +35,9 @@ function createDropDown(){
   allEpisodes.forEach((episode) => {
     const option = document.createElement("option");
     option.value = episode.id;
-    option.text = episode.name;
+    option.text = `S${formatSeasonNumber(
+      episode.season
+    )}E${formatEpisodeNumber(episode.number)} - ${episode.name}`;
     select.appendChild(option);
   })
 
@@ -46,7 +48,7 @@ function createDropDown(){
 function selectOneEpisode(event){
   console.log(event.target.value);
   const foundEpisode = allEpisodes.filter((episode) => {
-    return "" + episode.id === event.target.value;
+    return "" +episode.id === event.target.value;
   });
   makePageForEpisodes(foundEpisode);
 }
