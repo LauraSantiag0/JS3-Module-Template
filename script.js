@@ -4,33 +4,54 @@ const rootElem = document.getElementById("root");
 
 
 function setup() {
-  const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
+  createDropDown();
 }
 const searchTerm = document.getElementById("q");
-// searchTerm.value.innerText = "";
 
-// function render(){
-// const filteredFilms = allEpisodes.filter(function(episode){
-//   return episode.name.includes();
-// });
-// }
-// render();
-
-searchTerm.addEventListener("input", filteredFilms);
+searchTerm.addEventListener("input", handleFilter);
 
 function filteredFilms() {
   const findFilms = getAllEpisodes().filter(
     (episode) => episode.name.toLowerCase().includes(searchTerm.value.toLowerCase())
   );
-  emptyContents();
-  makePageForEpisodes(findFilms);
+  return findFilms;
+}
+
+function handleFilter(){
+  const filteredEpisodes = filteredFilms();
+  makePageForEpisodes(filteredEpisodes);
 }
 
 function emptyContents(){
   
   rootElem.innerHTML = "";
 }
+
+function createDropDown(){
+  const select = document.getElementById("episode-list");
+  const option = document.createElement("option");
+  select.appendChild(option);
+  allEpisodes.forEach((episode) => {
+    const option = document.createElement("option");
+    option.value = episode.id;
+    option.text = episode.name;
+    select.appendChild(option);
+  })
+
+  select.addEventListener("change", selectOneEpisode);
+  return select;
+}
+
+function selectOneEpisode(event){
+  console.log(event.target.value);
+  const foundEpisode = allEpisodes.filter((episode) => {
+    return "" + episode.id === event.target.value;
+  });
+  makePageForEpisodes(foundEpisode);
+}
+
+
 
 function makePageForEpisodes(episodeList) {
   
@@ -63,6 +84,14 @@ function makePageForEpisodes(episodeList) {
 
     rootElem.appendChild(episodeElem);
   });
+    renderEpisodeCount();
+
+}
+
+function renderEpisodeCount(){
+const matchingCount = document.getElementById("matching-episodes");
+
+matchingCount.innerText = `${filteredFilms().length} episodes match your search`;
 }
 
 function formatSeasonNumber(seasonNumber) {
