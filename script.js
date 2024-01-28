@@ -2,7 +2,6 @@
 const allEpisodes = getAllEpisodes();
 const rootElem = document.getElementById("root");
 
-
 function setup() {
   makePageForEpisodes(allEpisodes);
   createDropDown();
@@ -13,50 +12,48 @@ searchTerm.addEventListener("input", handleFilter);
 
 function filteredFilms() {
   const findFilms = getAllEpisodes().filter(
-    (episode) => episode.name.toLowerCase().includes(searchTerm.value.toLowerCase())
+    (episode) =>
+      episode.name.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+      episode.summary.toLowerCase().includes(searchTerm.value.toLowerCase())
   );
   return findFilms;
 }
 
-function handleFilter(){
+function handleFilter() {
   const filteredEpisodes = filteredFilms();
   makePageForEpisodes(filteredEpisodes);
 }
 
-function emptyContents(){
-  
+function emptyContents() {
   rootElem.innerHTML = "";
 }
 
-function createDropDown(){
+function createDropDown() {
   const select = document.getElementById("episode-list");
   const option = document.createElement("option");
   select.appendChild(option);
   allEpisodes.forEach((episode) => {
     const option = document.createElement("option");
     option.value = episode.id;
-    option.text = `S${formatSeasonNumber(
-      episode.season
-    )}E${formatEpisodeNumber(episode.number)} - ${episode.name}`;
+    option.text = `S${formatSeasonNumber(episode.season)}E${formatEpisodeNumber(
+      episode.number
+    )} - ${episode.name}`;
     select.appendChild(option);
-  })
+  });
 
   select.addEventListener("change", selectOneEpisode);
   return select;
 }
 
-function selectOneEpisode(event){
+function selectOneEpisode(event) {
   console.log(event.target.value);
   const foundEpisode = allEpisodes.filter((episode) => {
-    return "" +episode.id === event.target.value;
+    return "" + episode.id === event.target.value;
   });
   makePageForEpisodes(foundEpisode);
 }
 
-
-
 function makePageForEpisodes(episodeList) {
-  
   emptyContents();
 
   episodeList.forEach((episode) => {
@@ -86,14 +83,15 @@ function makePageForEpisodes(episodeList) {
 
     rootElem.appendChild(episodeElem);
   });
-    renderEpisodeCount();
-
+  renderEpisodeCount();
 }
 
-function renderEpisodeCount(){
-const matchingCount = document.getElementById("matching-episodes");
+function renderEpisodeCount() {
+  const matchingCount = document.getElementById("matching-episodes");
 
-matchingCount.innerText = `${filteredFilms().length} episodes match your search`;
+  matchingCount.innerText = `${
+    filteredFilms().length
+  } episodes match your search`;
 }
 
 function formatSeasonNumber(seasonNumber) {
